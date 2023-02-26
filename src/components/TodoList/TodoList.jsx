@@ -11,8 +11,10 @@ const TodoList = () => {
   const handleAdd = (todo) => {
     setTodos([...todos, todo]);
   };
-  const handleUpdate = () => {};
-  const handleDelete = () => {};
+  const handleUpdate = (updated) =>
+    setTodos(todos.map((t) => (t.id === updated.id ? updated : t)));
+  const handleDelete = (deleted) =>
+    setTodos(todos.filter((t) => t.id !== deleted.id));
   return (
     <section>
       <ul>
@@ -20,7 +22,7 @@ const TodoList = () => {
           <Todo
             key={item.id}
             todo={item}
-            onupdate={handleUpdate}
+            onUpdate={handleUpdate}
             onDelete={handleDelete}
           />
         ))}
