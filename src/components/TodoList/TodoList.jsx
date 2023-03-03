@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddTodo from '../AddTodo/AddTodo';
 import Todo from '../Todo/Todo';
 import styles from './TodoList.module.css';
 
 const TodoList = ({ filter }) => {
-  const [todos, setTodos] = useState([
-    { id: '123', text: '수영', status: 'active' },
-    { id: '124', text: '코딩', status: 'active' },
-    { id: '125', text: '영단어', status: 'active' },
-  ]);
+  const [todos, setTodos] = useState(readTodoFromLocalStorage);
   const handleAdd = (todo) => {
     setTodos([...todos, todo]);
   };
@@ -16,6 +12,10 @@ const TodoList = ({ filter }) => {
     setTodos(todos.map((t) => (t.id === updated.id ? updated : t)));
   const handleDelete = (deleted) =>
     setTodos(todos.filter((t) => t.id !== deleted.id));
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
   const filtered = getFilterdItem(todos, filter);
   return (
@@ -34,7 +34,10 @@ const TodoList = ({ filter }) => {
     </section>
   );
 };
-
+const readTodoFromLocalStorage = () => {
+  const todos = [localStorage.getItem('todos')];
+  return todos ? JSON.parse(todos) : [];
+};
 const getFilterdItem = (todos, filter) => {
   if (filter === 'all') {
     return todos;
