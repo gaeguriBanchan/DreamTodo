@@ -3,7 +3,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 import styles from './Todo.module.css';
 
 const Todo = ({ todo, onUpdate, onDelete }) => {
-  const { id, text, status } = todo;
+  const { id, status } = todo;
   const handleChange = (e) => {
     const status = e.target.checked ? 'completed' : 'active';
     onUpdate({ ...todo, status });
