@@ -35,7 +35,7 @@ const TodoList = ({ filter }) => {
   );
 };
 const readTodoFromLocalStorage = () => {
-  const todos = [localStorage.getItem('todos')];
+  const todos = localStorage.getItem('todos');
   return todos ? JSON.parse(todos) : [];
 };
 const getFilterdItem = (todos, filter) => {
